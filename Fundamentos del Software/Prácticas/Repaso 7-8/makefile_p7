@@ -1,0 +1,31 @@
+# Autor: Antonio Javier Rodríguez Romero
+#
+# Nombre: makefile_p7
+#
+# Uso: make –f makefile_p7
+#
+# Descripción: permite crear el archivo hello.o, así como compilar los archivos tan.cpp, cos.cpp y sin.cpp. Genera la librería libmath, y finalmente obtiene un fichero ejecutable llamado Practica7. Se han uso de variables para almacenar el compilador y las ubicaciones de los includes y los archivos objeto.
+
+# Variable que indica el compilador que se va a utilizar
+CC=g++
+# Variable que indica el directorio en donde se encuentran los archivos de cabecera
+INCLUDE_DIR= ./includes
+# Variable que indica el directorio en donde se encuentran las bibliotecas
+LIB_DIR=./libs
+
+Practica7: main2.o factorial.o hello.o
+	$(CC) -L$(LIB_DIR) -o $@ $^ -lmath
+main2.o: main2.cpp
+	$(CC) -I$(INCLUDE_DIR) -c $^ -lmath
+libmath.a: sin.o cos.o tan.o
+	ar -rvs $(LIB_DIR)/$@ $^
+factorial.o: factorial.cpp
+	$(CC) -I$(INCLUDE_DIR) -c $^
+hello.o: hello.cpp
+	$(CC) -I$(INCLUDE_DIR) -c $^
+sin.o: sin.cpp
+	$(CC) -I$(INCLUDE_DIR) -c $^
+cos.o: cos.cpp
+	$(CC) -I$(INCLUDE_DIR) -c $^
+tan.o: tan.cpp
+	$(CC) -I$(INCLUDE_DIR) -c $^
